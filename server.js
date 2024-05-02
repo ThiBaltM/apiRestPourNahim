@@ -187,19 +187,13 @@ app.patch("/users/:id", async (req,res)=>{
 });
 
 app.get("/products", async(req,res)=>{
-    var name = req.query.name;
-    about = req.query.about;
-    price = req.query.price;
-    console.log(name)
-    console.log(about)
-    console.log(price)
-    console.log(`SELECT * FROM products WHERE name LIKE '%${name}%' AND about LIKE '%${about}%'`)
+    const {name, about, price} = req.query;
+
     if(price == null){
-        product = await sql`
-        SELECT * FROM products WHERE name LIKE '%${name}%' AND about LIKE '%${about}%'`;
+        product = await sql`SELECT * FROM products WHERE name LIKE ${'%'+name+'%'} AND about LIKE ${'%'+about+'%'}`;
     }else{
         product = await sql`
-        SELECT * FROM products WHERE name LIKE '%${name}%' AND about LIKE '%${about}%' AND price=${price}`;
+        SELECT * FROM products WHERE name LIKE ${'%'+name+'%'} AND about LIKE ${'%'+about+'%'} AND price=${price}`;
     }
 
     
