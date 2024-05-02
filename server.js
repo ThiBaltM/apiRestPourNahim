@@ -3,11 +3,8 @@ const postgres = require("postgres");
 const z = require("zod");
 const bcrypt = require("bcrypt");
 
-const app = express();
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const app = express();
 const port = 8000;
 const sql = postgres({ db:"bddrest", user:"postgres", password:"epsiepsi"});
 
