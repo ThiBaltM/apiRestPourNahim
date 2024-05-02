@@ -3,8 +3,11 @@ const postgres = require("postgres");
 const z = require("zod");
 const bcrypt = require("bcrypt");
 
-
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const port = 8000;
 const sql = postgres({ db:"bddrest", user:"postgres", password:"epsiepsi"});
 
@@ -50,7 +53,7 @@ app.get("/", (req,res) => {
 });
 
 app.listen(port, ()=>{
-    console.log('Listening on http://localhost:${port}');
+    console.log(`Listening on http://localhost:${port}`);
 });
 
 app.get("/products/:id", async(req,res)=>{
